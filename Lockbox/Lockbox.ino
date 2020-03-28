@@ -1,7 +1,8 @@
 #include "Delay.h"  
   
 NonBlockDelay mainTimer; 
-NonBlockDelay displayTimer; 
+NonBlockDelay displayTimer;
+NonBlockDelay tickTimer;
    
 enum boxStates {
   ARMED_0, 
@@ -16,6 +17,7 @@ enum boxStates boxState;
 String keyCode;
 unsigned long interval=0;
 unsigned long previousMillis=0;
+int tickRate = 5000;
 
 String const keyCode_Init = "0000#";
 String const keyCode_1 = "9374#";
@@ -37,7 +39,6 @@ void loop() {
   CheckKeys();
   UpdateStatus();
   UpdateDisplay();
-  delay(2000);
 }
 
 void CheckKeys() {
@@ -53,6 +54,7 @@ void CheckKeys() {
 void StartTimer() {
   //Important: Need "L" so that the value passed in is a long not an int
   mainTimer.CountDown(1000L * 60L * 60L * 10L); // Todo: Implement the user entry for the timeout, default to 10 mins
+  tickTimer.CountDown(5000);
 }
 
 void UpdateStatus() {
@@ -102,6 +104,7 @@ void CodeWrong() {
     Serial.println(boxState,DEC);
     mainTimer.Skip(1000 * 30);
     keyCode = keyCode_Init;
+    tickRate = tickRate * 0.8;
 }
 
 void CodeAccepted() {
@@ -119,8 +122,9 @@ void UpdateDisplay() {
     //Clear screen
   }
 
-  if (mainTimer.RemainingTime() % 10000 == 0) {
+  if (tickTimer.OutofTime()) {
     Serial.println("TICK");
+    tickTimer.CountDown(tickRate);
   }
   //Display counter
   //Display LEDs
