@@ -6,6 +6,9 @@ Change the keypad to use a separate serial line.
 
 Change output to use the LCD, which is also serial. 
   Serial.println("WRONG CODE");
+  // Might need to use a library here 
+  https://www.hobbytronics.co.uk/i2clcd-backpack-v2
+  
 
 Write the time to the display in UpdateDisplay
 
