@@ -1,9 +1,15 @@
 So far we've got a count down happening and some times.
 
+Wiring up the pins. UNO.
+
 Change the keypad to use a separate serial line.
 
-Change output to use the LCD
+Change output to use the LCD, which is also serial. 
   Serial.println("WRONG CODE");
 
 Write the time to the display in UpdateDisplay
+
+Display count down. Looks like we can use 2 digits for minutes, 2 for seconds and 1 for 1/10 of second. Will need to parse the "RemainingTime" from the main timer which is in Miliseconds into a string to send to that display.
+
+
 
