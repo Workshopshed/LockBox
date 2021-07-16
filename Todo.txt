@@ -1,0 +1,9 @@
+So far we've got a count down happening and some times.
+
+Change the keypad to use a separate serial line.
+
+Change output to use the LCD
+  Serial.println("WRONG CODE");
+
+Write the time to the display in UpdateDisplay
+
